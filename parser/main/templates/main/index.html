@@ -1,0 +1,51 @@
+<h1>Выберите параметры запроса</h1>
+
+
+<form action="parsing/" method="post">
+    {% csrf_token %}
+{% if experience %}
+<select name="experience" id="experience-select">
+    {% for key, value in experience.items %}
+    <option value={{ key }}>{{ value }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+
+{% if employment %}
+<select name="employment" id="employment-select">
+    {% for key, value in employment.items %}
+    <option value={{ key }}>{{ value }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+
+{% if areas %}
+<select name="area" id="area-select">
+    {% for el in areas %}
+    <option value={{ el.2 }}>{{ el.3 }}, {{ el.1 }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+
+{% if profRoles %}
+<select name="profRole" id="profRole-select">
+    {% for key, value in profRoles.items %}
+    <option value={{ key }}>{{ value }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+<button type="submit">Получить аналитику</button>
+</form>
+
+{% if params %}
+    <h3>Запросы по параметрам</h3>
+    {% for param in params %}
+    <p>{{ param }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if result %}
+    {% for el in result %}    
+    <p>{{ result }}</p>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,78 @@
+{% load main_tags %}
+
+<h1>Результат запроса</h1>
+{% if notFound %}
+<h2>Вакансии по данному запросу не найдены</h2>
+{% endif %}
+
+<a href="{% url "main:index" %}">Новый запрос</a>
+{% if count %}
+    <h2>Всего найдено вакансий: {{ count }}</h2>
+{% endif %}
+
+{% company_names as companies %}
+
+{% if companies %}
+<h3>Фильтр по компаниям</h3>
+<form action="", method="get">
+<select name="order_by", >
+{% for company in companies %}
+<option value={{ company }} {% if company == current_filter %} selected="selected"{% endif %} >{% clear_name company %}</option>
+{% endfor %}
+</select>
+<button type="submit">Применить</button>
+</form>
+{% endif %}
+
+{% if vacancies %}
+    <table>
+        <thead>
+            <tr>
+                <th>Название вакансии</th>
+                <th>Адрес</th>
+                <th>Работодатель</th>
+                <th>Зарплата</th>
+                <th>Занятость</th>
+                <th>Опыт работы</th>
+                <th>Регион</th>
+                <th>Специальность</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for vacancy in vacancies %}
+            <tr>
+                <th>{{ vacancy.name }}</th>
+                <th>{{ vacancy.address }}</th>
+                <th>{{ vacancy.employer }}</th>
+                <th>{{ vacancy.salary }}</th>
+                <th>{{ vacancy.employment }}</th>
+                <th>{{ vacancy.experience }}</th>
+                <th>{{ vacancy.area }}</th>
+                <th>{{ vacancy.profRole }}</th>
+            </tr>
+    {% endfor %}
+        </tbody>   
+    </table>
+{% endif %}
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    a {
+        margin 10px;
+    }
+    </style>
